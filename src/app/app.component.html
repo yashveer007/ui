@@ -1,0 +1,20 @@
+<div class="text-center">
+  <h2>{{"Welcome to "+title | titlecase}}</h2> 
+</div>
+<h2></h2>
+<nav class="navbar navbar-default text-center">
+  <div class="jumbotron">
+      <div>
+          <button type="button" class="btn btn-outline-primary"><a routerLink="/addAccount" routerLinkActive="active" > Add Account</a></button>
+      </div>
+      <br>
+      <div>
+          <button type="button" class="btn btn-outline-primary"><a routerLink="/updateAccount" routerLinkActive="active" >Update Account</a></button>
+      </div>
+      <br>
+      <div>
+          <button type="button" class="btn btn-outline-primary"><a routerLink="/deleteAccount" routerLinkActive="active">Delete Account</a></button>
+      </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>

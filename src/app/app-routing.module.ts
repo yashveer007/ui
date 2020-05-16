@@ -1,0 +1,18 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AddAccountComponent } from './add-account/add-account.component';
+import { DeleteAccountComponent } from './delete-account/delete-account.component';
+import { UpdateAccountComponent } from './update-account/update-account.component';
+
+
+const routes: Routes = [
+  {path:'addAccount',component:AddAccountComponent},
+  {path:'updateAccount',component:UpdateAccountComponent},
+  {path:'deleteAccount',component:DeleteAccountComponent}
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
