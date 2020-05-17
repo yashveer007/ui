@@ -1,1 +1,13 @@
-<p>delete-account works!</p>
+<h1 style="margin-left: 40%;">Pecunia Bank</h1>
+<div class="jumbotron">
+    <form #deleteForm="ngForm" (ngSubmit)="deleteAccount(deleteForm)">
+        <div class="form-group row">
+            <label for="accountNumber" class="col-sm-2 col-form-label">Account Number</label>
+            <div class="col-sm-3 col-form-label">
+              <input type="text" class="form-control" #accountNumber="ngModel" id="accountNumber" name="creditAmount"  ngModel required>
+              <small id="accountNumber" class="form-text text-muted">Please Don't enter any secial character like $,*;@,etc..,</small>
+            </div>
+        </div>
+        <button [disabled]="deleteForm.form.invalid" class="btn btn-primary">Delete Account</button>
+    </form>
+</div>

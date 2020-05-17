@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Map } from '../model/Map';
 import { AccountServiceService } from '../services/account-service.service';
+import { Account } from '../model/account';
+
 
 
 @Component({
@@ -24,7 +25,8 @@ export class AddAccountComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  map:Map=null;
+  account:Account=null;
+  countryHasError=true;
 
   addAccount(form:any){
     let details=form.value;
@@ -33,7 +35,6 @@ export class AddAccountComponent implements OnInit {
     let accountStatus=details.accountStatus;
     let accountBalance=details.accountBalance;
     let accountInterest=details.accountInterest;
-    let lastUpadte= new Date();
     let customerName=details.customerName;
     let customerAadhar=details.customerAadhar;
     let customerPan=details.customerPan;
@@ -44,32 +45,38 @@ export class AddAccountComponent implements OnInit {
     let state= details.state;
     let country= details.country;
     let zipcode=details.zipcode;
-    this.map=new Map();
-    this.map.accountBranchId=branchId;
-    this.map.accountType=accountType;
-    this.map.accountStatus=accountStatus;
-    this.map.accountBalance=accountBalance;
-    this.map.accountInterest=accountInterest;
-    this.map.lastUpdate=lastUpadte;
-    this.map.customerName=customerName;
-    this.map.customerAadhar=customerAadhar;
-    this.map.customerPan=customerPan;
-    this.map.customerDob=cutomerDob;
-    this.map.addressLine=addressLine;
-    this.map.city=city;
-    this.map.state=state;
-    this.map.country=country;
-    this.map.zipcode=zipcode;
+    this.account=new Account();
+    this.account.accountBranchId=branchId;
+    this.account.accountType=accountType;
+    this.account.accountStatus=accountStatus;
+    this.account.accountBalance=accountBalance;
+    this.account.accountInterest=accountInterest;
+    this.account.customerName=customerName;
+    this.account.customerAadhar=customerAadhar;
+    this.account.customerPan=customerPan;
+    this.account.customerDob=cutomerDob;
+    this.account.addressLine=addressLine;
+    this.account.city=city;
+    this.account.state=state;
+    this.account.country=country;
+    this.account.zipcode=zipcode;
 
     
-    let result=this.service.addAccount(this.map); // adding to the store
-    result.subscribe((map1:Map)=>{
-      this.map=map1;
+    let result=this.service.addAccount(this.account); // adding to the store
+    result.subscribe((account:Account)=>{
+      this.account=account;
     },
     err=>{
     console.log("err="+err);
     } );
     form.reset();
+  }
+  validateCountry(value){
+    if(value === 'default'){
+      this.countryHasError=true;
+    }else{
+      this.countryHasError=false;
+    }
   }
 
 }

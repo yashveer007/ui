@@ -6,9 +6,9 @@ import { UpdateAccountComponent } from './update-account/update-account.componen
 
 
 const routes: Routes = [
-  {path:'addAccount',component:AddAccountComponent},
-  {path:'updateAccount',component:UpdateAccountComponent},
-  {path:'deleteAccount',component:DeleteAccountComponent}
+  {path:'add-Account',component:AddAccountComponent},
+  {path:'update-Account',component:UpdateAccountComponent},
+  {path:'delete-Account',component:DeleteAccountComponent}
 ];
 
 @NgModule({
