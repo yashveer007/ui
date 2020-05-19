@@ -7,7 +7,7 @@ import com.capgemini.pecunia.accountmgmt.entities.Customer;
 
 public interface IAccountService {
 
-	String addAccount(Customer customer, Address address, Account account);
+	Account addAccount(Customer customer, Address address, Account account);
 
 	boolean deleteAccount(String accountId);
 

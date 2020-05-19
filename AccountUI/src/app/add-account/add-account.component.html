@@ -1,4 +1,4 @@
-<h1 style="margin-left: 40%;">Pecunia Bank</h1>
+<h1 style="margin-left: 40%;">Add Account</h1>
 <div class="jumbotron">
     <form #addAccountForm="ngForm" (ngSubmit)="addAccount(addAccountForm)">
         <div class="form-group row">
@@ -8,17 +8,18 @@
             </div>
         </div>
         <div class="form-group row">
-          <label for="accountType" class="col-sm-3 col-form-label">Account #accountType</label>
+          <label for="accountType" class="col-sm-3 col-form-label">Account Type</label>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" #accountType="ngModel" name="accountType" id="savingAccount" value="option1" ngModel>
+              <input class="form-check-input" type="radio" #accountType="ngModel" name="accountType" id="savingAccount" value="Saving Account" ngModel>
               <label class="form-check-label" for="savingAccount">Saving Account</label>
             </div>
+
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio"   #accountType="ngModel" name="customerGender" id="currentAccount" value="option2" ngModel>
-              <label class="form-check-label" for="currentAccount">Current Account </label>
+              <input class="form-check-input" type="radio"   #accountType="ngModel" name="customerGender" id="currentAccount" value="Saving Account" ngModel>
+              <label class="form-check-label" for="currentAccount">Saving Account </label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio"   #accountType="ngModel" name="customerGender" id="fixedAccount" value="option3" ngModel >
+              <input class="form-check-input" type="radio"   #accountType="ngModel" name="customerGender" id="fixedAccount" value="Fixed Deposit Accout" ngModel >
               <label class="form-check-label" for="fixedAccount">Fixed Deposit Accout</label>
             </div>
             <div *ngIf="accountType.invalid && (accountType.dirty || accountType.touched)" class="alert alert-danger">
@@ -27,18 +28,6 @@
               </small>
           </div>
         </div>
-         <div class="form-group row">
-            <label for="accountStatus" class="col-sm-2 col-form-label">Account Status</label>
-            <select class="form-control" id="accountStatus" #accountStatus="ngModel" class="col-sm-2 col-form-label" name="accountStatus" ngModel>
-              <option selected value="">Choose Account Status</option>
-              <option *ngFor="let status of accountStatuses" value="{{status}}">{{status}}</option>
-            </select>
-            <div *ngIf="accountStatus.invalid && (accountStatus.dirty || accountStatus.touched)" class="alert alert-danger">
-              <small *ngIf="accountStatus.errors.required">
-                 Please choose the accountStatus.
-              </small>
-            </div>
-          </div>
           <div class="form-group row">
             <label for="creditAmount" class="col-sm-2 col-form-label">Account Balance</label>
             <div class="col-sm-3 col-form-label">
@@ -84,15 +73,15 @@
         <div class="form-group row">
           <label for="customerGender" class="col-sm-3 col-form-label">Customer Gender</label>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" #customerGender="ngModel" name="customerGender" id="male" value="option1" ngModel>
+              <input class="form-check-input" type="radio" #customerGender="ngModel" name="customerGender" id="male" value="Male" ngModel>
               <label class="form-check-label" for="male">Male</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio"   #customerGender="ngModel" name="customerGender" id="female" value="option2" ngModel>
+              <input class="form-check-input" type="radio"   #customerGender="ngModel" name="customerGender" id="female" value="Female" ngModel>
               <label class="form-check-label" for="female">Female </label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio"   #customerGender="ngModel" name="customerGender" id="other" value="option3" ngModel >
+              <input class="form-check-input" type="radio"   #customerGender="ngModel" name="customerGender" id="other" value="Other" ngModel >
               <label class="form-check-label" for="other">Other</label>
             </div>
             <div *ngIf="customerGender.invalid && (customerGender.dirty || customerGender.touched)" class="alert alert-danger">
@@ -104,7 +93,7 @@
         <div class="form-group row">
           <label for="customerDob" class="col-sm-2 col-form-label">Customer  DOB</label>
           <div class="col-sm-3 col-form-label">
-            <input type="date" id="customerDob"  #customerDob="ngModel" name="birthday" class="form-control" ngModel required> 
+            <input type="text" id="customerDob"  #customerDob="ngModel" name="customerDob" class="form-control" ngModel required> 
           </div>
         </div>
         <div class="form-group row">
@@ -138,7 +127,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="country" class="col-sm-2 col-form-label">Customer State</label>
+          <label for="country" class="col-sm-2 col-form-label">Customer Country</label>
           <select class="form-control" id="country" #country="ngModel" class="col-sm-2 col-form-label" name="country" ngModel>
             <option selected value="">Choose Country</option>
             <option *ngFor="let country of countries" value="{{country}}">{{country}}</option>

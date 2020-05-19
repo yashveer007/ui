@@ -14,6 +14,8 @@ import com.capgemini.pecunia.accountmgmt.entities.Account;
 import com.capgemini.pecunia.accountmgmt.entities.Address;
 import com.capgemini.pecunia.accountmgmt.entities.Customer;
 import com.capgemini.pecunia.accountmgmt.exceptions.AccountNotFoundException;
+import com.capgemini.pecunia.accountmgmt.exceptions.CustomerNotFoundException;
+import com.capgemini.pecunia.accountmgmt.exceptions.IncorrectDateException;
 import com.capgemini.pecunia.accountmgmt.service.IAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,12 +40,12 @@ public class AccountRestController {
      * @return response to server
      */
     @PostMapping("/add")
-    public ResponseEntity<String> addAccount(@RequestBody Map<String, Object> request) {
+    public ResponseEntity<Account> addAccount(@RequestBody Map<String, Object> request) {
         Account account = AccountUtil.convertToAccount(request);
         Customer customer = AccountUtil.convertToCustomer(request);
         Address address = AccountUtil.convertToAddress(request);
-        String msg = accountService.addAccount(customer, address, account);
-        ResponseEntity<String> response = new ResponseEntity<String>(msg, HttpStatus.OK);
+        Account result = accountService.addAccount(customer, address, account);
+        ResponseEntity<Account> response = new ResponseEntity<>(result, HttpStatus.OK);
         return response;
     }
 
@@ -122,7 +124,7 @@ public class AccountRestController {
      *
      * @return
      */
-    @DeleteMapping("/delete")
+    @PutMapping("/delete")
     public ResponseEntity<String> deleteAccount(@RequestBody Map<String, Object> request) {
         String accountId = (String) request.get("accountId");
         boolean isTrue = accountService.deleteAccount(accountId);
@@ -133,5 +135,39 @@ public class AccountRestController {
         ResponseEntity<String> response = new ResponseEntity<>(msg, HttpStatus.OK);
         return response;
     }
+    
+    @ExceptionHandler(AccountNotFoundException.class)
+	public ResponseEntity<String> handleAccountNotFound(AccountNotFoundException ex) {
+		Log.error("Account not found exception ", ex);
+		String msg = ex.getMessage();
+		ResponseEntity<String> response = new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
+		return response;
+	}
+	
+    @ExceptionHandler(CustomerNotFoundException.class)
+   	public ResponseEntity<String> handleCustomerNotFound(CustomerNotFoundException ex) {
+   		Log.error("Customer not found exception ", ex);
+   		String msg = ex.getMessage();
+   		ResponseEntity<String> response = new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
+   		return response;
+   	}
+    
+    @ExceptionHandler(IncorrectDateException.class)
+   	public ResponseEntity<String> handleDate(IncorrectDateException ex) {
+   		Log.error("Invalid date  ", ex);
+   		String msg = ex.getMessage();
+   		ResponseEntity<String> response = new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
+   		return response;
+   	}
+    
+	
+	
+	@ExceptionHandler(Throwable.class)
+	public ResponseEntity<String> handleAll(Throwable ex) {
+		Log.error("Something went wrong ", ex);
+		String msg = ex.getMessage();
+		ResponseEntity<String> response = new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+		return response;
+	}
 
 }

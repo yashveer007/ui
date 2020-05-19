@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountServiceService } from '../services/account-service.service';
-import { Account } from '../model/account';
-
+import { Account } from '../Model/account';
+import { AccountResponse } from '../dto/account-response';
+import { AccountServiceService } from '../service/account-service.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -14,8 +15,6 @@ export class AddAccountComponent implements OnInit {
   citys=["Mumbai","chennai","Amroha","Moradabad","kolkata","New Delhi"];
   countries=["India","China","USA","Other"];
   states=["Uttar Pradesh","New Delhi","Madhya Pradesh","Maharastra",];
-  accountStatuses=["Open ","close"];
-
   service:AccountServiceService;
 
   constructor(service:AccountServiceService) { 
@@ -23,63 +22,59 @@ export class AddAccountComponent implements OnInit {
 
   }
 
+
   ngOnInit(): void {
   }
-  account:Account=null;
+  account:Account;
+  accountResponse:AccountResponse;
   countryHasError=true;
-
   addAccount(form:any){
     let details=form.value;
     let branchId=details.branchId;
     let accountType=details.accountType;
-    let accountStatus=details.accountStatus;
+    console.log(accountType);
     let accountBalance=details.accountBalance;
     let accountInterest=details.accountInterest;
     let customerName=details.customerName;
     let customerAadhar=details.customerAadhar;
+    console.log(customerAadhar);
     let customerPan=details.customerPan;
     let customerContact= details.customerContact;
-    let cutomerDob=details.cutomerDob;
+    console.log(customerContact);
+    let cutomerDob=details.customerDob;
+    console.log("customer DOB"+cutomerDob);
     let addressLine=details.addressLine;
     let city=details.city;
+    console.log(city);
     let state= details.state;
     let country= details.country;
     let zipcode=details.zipcode;
     this.account=new Account();
     this.account.accountBranchId=branchId;
     this.account.accountType=accountType;
-    this.account.accountStatus=accountStatus;
     this.account.accountBalance=accountBalance;
     this.account.accountInterest=accountInterest;
     this.account.customerName=customerName;
+    console.log(this.account.customerName);
     this.account.customerAadhar=customerAadhar;
     this.account.customerPan=customerPan;
+    console.log(this.account.customerPan);
     this.account.customerDob=cutomerDob;
+    console.log(this.account.customerDob);
     this.account.addressLine=addressLine;
-    this.account.city=city;
-    this.account.state=state;
-    this.account.country=country;
-    this.account.zipcode=zipcode;
+    this.account.addressCity=city;
+    this.account.addressState=state;
+    this.account.addressCountry=country;
+    this.account.addressZipcode=zipcode;
 
     
-    let result=this.service.addAccount(this.account); // adding to the store
-    result.subscribe((account:Account)=>{
-      this.account=account;
+    let result:Observable<AccountResponse>=this.service.addAccount(this.account); // adding to the store
+    result.subscribe((accountResponse:AccountResponse)=>{
+      this.accountResponse=accountResponse;
     },
     err=>{
     console.log("err="+err);
     } );
     form.reset();
   }
-  validateCountry(value){
-    if(value === 'default'){
-      this.countryHasError=true;
-    }else{
-      this.countryHasError=false;
-    }
-  }
-
 }
-
-     
-  

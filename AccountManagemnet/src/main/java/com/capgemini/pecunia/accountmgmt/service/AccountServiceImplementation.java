@@ -38,7 +38,7 @@ public class AccountServiceImplementation implements IAccountService {
 	 * @return account
 	 */
 	@Override
-	public String addAccount(Customer customer, Address address, Account account) {
+	public Account addAccount(Customer customer, Address address, Account account) {
 		if (account == null) {
 			throw new InvalidArgumentException("Account can't be null");
 		}
@@ -62,10 +62,10 @@ public class AccountServiceImplementation implements IAccountService {
 		account.setCustomer(customer);
         account.setAccountStatus("active");
         account.setAccountHolderId(customerId);
-        account.setCustomer(customer);
+       // account.setCustomer(customer);
         account.setLastUpdated(new Date());
 		account=accountDao.save(account);
-		return accountId;
+		return account;
 	}
 
 	/**
@@ -121,6 +121,7 @@ public class AccountServiceImplementation implements IAccountService {
 	public boolean deleteAccount(String accountId) {
 		Account account = findByAccountById(accountId);
 		account.setAccountStatus("Close");
+		accountDao.save(account);
 		return true;
 	}
 

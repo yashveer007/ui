@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountServiceService } from '../services/account-service.service';
-import { Account } from '../model/account';
-
+import { AccountServiceService } from '../service/account-service.service';
 
 @Component({
   selector: 'app-update-account',
@@ -16,8 +14,8 @@ export class UpdateAccountComponent implements OnInit {
     this.service=service;
 
   }
+
   ngOnInit(): void {
   }
-  account:Account;
-  
+
 }

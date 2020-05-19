@@ -1,13 +1,20 @@
-<h1 style="margin-left: 40%;">Pecunia Bank</h1>
-<div class="jumbotron">
-    <form #deleteForm="ngForm" (ngSubmit)="deleteAccount(deleteForm)">
-        <div class="form-group row">
-            <label for="accountNumber" class="col-sm-2 col-form-label">Account Number</label>
-            <div class="col-sm-3 col-form-label">
-              <input type="text" class="form-control" #accountNumber="ngModel" id="accountNumber" name="creditAmount"  ngModel required>
-              <small id="accountNumber" class="form-text text-muted">Please Don't enter any secial character like $,*;@,etc..,</small>
-            </div>
+<h1 style="margin-left: 40%;">Delete Account</h1>
+<form #deleteForm = "ngForm" (ngSubmit)="deleteAccount(deleteForm)">
+    <div class="form-group">
+        <label class="form-group'level">Account Id</label>
+        <input type="text" required #accountId="ngModel" pattern="^\d+$" name="accountId" class="form-control" ngModel>
+    </div>
+
+    <div class="alert alert-danger" *ngIf="accountId.errors && (accountId.dirty || accountId.touched)">
+        <div *ngif="accountId.errors.required"> 
+            Theater Id is required
         </div>
-        <button [disabled]="deleteForm.form.invalid" class="btn btn-primary">Delete Account</button>
-    </form>
-</div>
+    
+        <div *ngIf="accountId.errors.pattern">
+               Theater Id should be numeric
+        </div>
+    </div>
+
+    <button [disabled]="deleteForm.form.invalid" class="btn btn-primary" type="submit">Delete</button>
+</form>
+{{msg}}

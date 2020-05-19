@@ -88,13 +88,13 @@ public class AccountUtil {
 		Address address = new Address();
 		String addressLine = (String) request.get("addressLine");
 		address.setAddressLine(addressLine);
-		String addressCity = (String) request.get("city");
+		String addressCity = (String) request.get("addressCity");
 		address.setAddressCity(addressCity);
-		String addressState = (String) request.get("state");
+		String addressState = (String) request.get("addressState");
 		address.setAddressState(addressState);
-		String addressCountry = (String) request.get("country");
+		String addressCountry = (String) request.get("addressCountry");
 		address.setAddressCountry(addressCountry);
-		String addressZipcode = (String) request.get("zipcode");
+		String addressZipcode = (String) request.get("addressZipcode");
 		address.setAddressZipcode(addressZipcode);
 		return address;
 	}

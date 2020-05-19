@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountServiceService } from '../services/account-service.service';
-import { Account } from '../model/account';
-
+import { AccountServiceService } from '../service/account-service.service';
+import { Account } from '../Model/account';
 
 @Component({
   selector: 'app-delete-account',
@@ -20,25 +19,23 @@ export class DeleteAccountComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  msg:string;
+  deleteAccount(deleteForm:any){
+    //let details=form.value;
 
-  account:Account;
-  deleteAccount(form:any){
-    let details=form.value;
-    let accountNumber=details.accountNumber;
-    
-    this.account=new Account();
-    
-    this.account.accountStatus="Closed";
-    
-
-    
-    let result=this.service.deleteAccount(this.account); // adding to the store
-    result.subscribe((account:Account)=>{
-      this.account=account;
+    let accountNumber=deleteForm.value.accountId;
+    console.log(accountNumber);
+    let model : Account = new Account();
+    model.accountId=accountNumber;
+    console.log(model);
+    let result=this.service.deleteAccount(model); // adding to the store
+    result.subscribe((msg:string)=>{
+      this.msg="Done";
     },
     err=>{
     console.log("err="+err);
     } );
-    form.reset();
+    deleteForm.reset();
   }
+
 }
